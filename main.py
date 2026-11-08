@@ -44,6 +44,8 @@ Merged from Accurate Cyber Defense (github.com/Accurate-Cyber-Defense):
   python main.py mask checks              sysadmin-footprint-mask: its full 36-check suite
   python main.py mask sanitize            sysadmin: sanitize the sample env (demo)
   python main.py council                  ONE council status for all labs (deduped surface)
+  python main.py brain status             Purple Hat core council seats (Carbon 4 + Muse + Flows)
+  python main.py brain review             council review of a demo DoS alert set (strictest wins)
   python main.py chamber demo             Sandbox-API chamber (from the Docker image): static triage, never executes
   python main.py chamber triage <id>      triage one synthetic sample in the chamber
   python main.py honeypot report          honeypot log analysis (from honeyroot-x): no listener, bait never grants
@@ -424,7 +426,17 @@ def checks():
     check("cve_catalog_44", lambda: len(_cve_catalog) == 44)
     check("mask_sanitizer_works", lambda: _mask_sanitizer.is_sanitized(
         _mask_sanitizer.sanitize(dict(labs.MASK_SAMPLE_ENV))["clean_env"]))
-    check("council_single_surface", lambda: len(labs.council_status()["seats"]) == 4)
+    check("council_single_surface", lambda: len(labs.council_status()["seats"]) == 6)
+    from purple_analyzer import brains as _core_brains
+    check("core_carbon_decides", lambda: _core_brains.carbon_decide(
+        [{"type": "dos", "src": "198.51.100.9", "dst": "x", "count": 1500}])["decision"] == "ESCALATE"
+        and _core_brains.carbon_decide([])["decision"] == "PROCEED")
+    check("core_muse_advises", lambda: len(_core_brains.muse_advise([])["advice"]) == 4
+          and _core_brains.council_review([])["strictest_wins"] is True)
+    from php_re.brains import HOLD_GATES as _php_gates
+    from php_re import carbon4 as _php_c4
+    check("php_brains_full_seats", lambda: len(_php_gates) == 14
+          and _php_c4.seat_status()["model_id"] == "google/gemini-carbon-4-extended-pro-thinking")
     from php_re.sandbox import sandbox_demo as _chamber_demo
     from php_re.honeypot import honeypot_summary as _hp_summary
     check("chamber_never_executes", lambda: _chamber_demo()["any_executed"] is False
@@ -490,6 +502,18 @@ def main(argv):
         return labs.mask_dispatch(rest)
     if cmd == "council":
         _print(labs.council_status()); return 0
+    if cmd == "brain":
+        from purple_analyzer import brains as _brains
+        sub = rest[0] if rest else "status"
+        if sub == "status":
+            _print(_brains.seat_status()); return 0
+        if sub == "review":
+            demo_alerts = [{"type": "dos", "src": "198.51.100.9",
+                            "dst": "192.168.1.50", "count": 1500},
+                           {"type": "http_flood", "src": "198.51.100.9",
+                            "dst": "192.168.1.50", "count": 900}]
+            _print(_brains.council_review(demo_alerts)); return 0
+        print("brain subcommands: status | review"); return 2
     if cmd == "chamber":
         return labs.chamber_dispatch(rest)
     if cmd == "honeypot":

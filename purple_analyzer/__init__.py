@@ -10,6 +10,6 @@ Merged core is pure Python stdlib. Live capture with scapy is an optional
 extra in the upstream original; the merged engine works on simulated and
 caller-supplied packets so it runs and tests anywhere.
 """
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 __all__ = ["packets", "simulator", "detector", "monitor", "diagnostics",
            "telegram_alert", "traffic_sim", "report", "config", "swarm"]

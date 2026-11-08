@@ -39,7 +39,7 @@ This is about **one security lab that used to be eight separate projects**.
 - 🗜️ Then four of Darion's own repos were **decompressed** into it — expanded to their full source trees, **duplicates removed, everything different kept** (v1.2.0–v1.3.0, audit in `docs/DEDUPE_MAP.md`).
 - 🧪 Finally the **sandbox-api** detonation chamber and the **honeyroot-x honeypot** were merged in from his Docker Hub images (v1.4.0) — and the whole force got its name: **A-C-D-Matrix-FORCE**.
 
-Every source is preserved verbatim (sha256-checked) inside the project, every feature is reachable from **one** `main.py`, and the whole thing is verified: **111 pytest passed · unified CHECKS 44/44** (observed 2026-11-08).
+Every source is preserved verbatim (sha256-checked) inside the project, every feature is reachable from **one** `main.py`, and the whole thing is verified: **129 pytest passed · unified CHECKS 47/47** (observed 2026-11-08).
 
 ## 🎯 What this does?
 
@@ -53,7 +53,7 @@ Every source is preserved verbatim (sha256-checked) inside the project, every fe
 - 🛡️ **Inventories real vulnerabilities** — 44 unauthenticated RCE / memory-disclosure records with priority ranking (records are data, never exploit code)
 - 👣 **Masks your own footprint** — sanitizes env/history traces on your own machine, with isolation + profile + sandbox validation
 - 🧪 **Detonates safely** — Sandbox-API chamber triages samples **statically** (never executes, network always off); honeypot module classifies recorded trap attempts (**no listener exists**)
-- 🧠 **Asks a council** — one `council` surface reporting all four labs' Gemini Carbon 4 + Muse seats (names-only, no live calls in the labs)
+- 🧠 **Asks a council** — one `council` surface reporting all SIX seats (names-only, no live calls) — v1.5.0: the Purple Hat core and the chamber/honeypot seat carry Carbon 4 + Muse + Flows too, so every part of the Force has the full council
 
 ## 🧠 How this works?
 
@@ -145,7 +145,9 @@ python main.py mask sanitize        # sanitize the sample env (demo)
 python main.py chamber demo         # Sandbox-API chamber: 15 triaged, never executed
 python main.py chamber triage sqli-01
 python main.py honeypot report      # honeypot log analysis: 12 attempts, top threat 100
-python main.py council              # ONE council status for all four labs
+python main.py council              # ONE council status — all SIX seats
+python main.py brain status         # Purple Hat core seats (Carbon 4 + Muse + Flows)
+python main.py brain review         # core council review of a demo DoS alert set
 python main.py --hold-demo          # every lab's HOLD gates (exit 2)
 python main.py checks               # unified CHECKS (44/44 at last verified run)
 ```
@@ -159,8 +161,8 @@ python main.py checks               # unified CHECKS (44/44 at last verified run
 3. 🐍 **Check Python** — `python3 --version` (needs 3.10 or newer)
 4. 🎉 **Install nothing** — there are zero dependencies. (For the test suite only: `pip install pytest`)
 5. ▶️ **Run the demo** — `python main.py demo`
-6. ✅ **Run the checks** — `python main.py checks` → expect `CHECKS 44/44 · VERDICT PROCEED`
-7. 🧪 **Run the tests** — `python -m pytest -q` → expect `111 passed`
+6. ✅ **Run the checks** — `python main.py checks` → expect `CHECKS 47/47 · VERDICT PROCEED`
+7. 🧪 **Run the tests** — `python -m pytest -q` → expect `129 passed`
 8. 🖥️ **Open the dashboard** — open `dashboard/network-analyzer.html` in any browser
 9. 📨 **(Optional) Telegram alerts** — create a bot with BotFather, then in `python main.py shell`: `config_telegram token <VALUE>` and `config_telegram chat_id <VALUE>` (the token is never printed or committed)
 10. 🐳 **(Optional) Docker** — `docker build -t a-c-d-matrix-force .` then `docker run --rm a-c-d-matrix-force`
@@ -194,7 +196,7 @@ One box 📦, one remote control (`main.py`), no batteries to buy (zero dependen
 
 ## 🗺️ Mermaid flowchart diagrams — every script
 
-One master diagram lives in **How this works?** above. Here is one flowchart **per script** (77 scripts):
+One master diagram lives in **How this works?** above. Here is one flowchart **per script** (84 scripts):
 
 ### 🐍 `beyond_end.py`
 
@@ -696,6 +698,36 @@ flowchart LR
     B --> C["📤 results / data out"]
 ```
 
+### 🧪 `php_re/brains.py`
+
+Gemini Carbon 4 Extended Thinking -- DECIDER seat (offline, names-only).
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ is_held, decide"]
+    B --> C["📤 results / data out"]
+```
+
+### 🧪 `php_re/carbon4.py`
+
+Gemini Carbon 4 Extended Thinking -- full DECIDER seat (offline).
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ key_present, seat_status, _level_for_risk"]
+    B --> C["📤 results / data out"]
+```
+
+### 🧪 `php_re/flows.py`
+
+Google Flows -- ALL FOUR flows, plan-only, applied to BOTH brains.
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ _levels, flowx_plan, workspace_studio_plan"]
+    B --> C["📤 results / data out"]
+```
+
 ### 🧪 `php_re/honeypot.py`
 
 Honeypot -- honeyroot-x style LOG ANALYSIS ONLY.
@@ -703,6 +735,16 @@ Honeypot -- honeyroot-x style LOG ANALYSIS ONLY.
 ```mermaid
 flowchart LR
     A["📥 Input"] --> B["⚙️ classify_attempt, threat_score, _bursts"]
+    B --> C["📤 results / data out"]
+```
+
+### 🧪 `php_re/muse_seat.py`
+
+Muse AI advisor seat -- full seat, names-only, NO decision authority.
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ seat_status, _advice_items, advise"]
     B --> C["📤 results / data out"]
 ```
 
@@ -733,6 +775,16 @@ Purple-Hat Network Analyzer — merged Accurate Cyber Defense tools.
 ```mermaid
 flowchart LR
     A["📥 Input"] --> B["⚙️ module code"]
+    B --> C["📤 results / data out"]
+```
+
+### 🟣 `purple_analyzer/brains.py`
+
+Council seats for the Purple Hat core — added at Darion's order so
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ carbon_decide, muse_advise, flow_plan"]
     B --> C["📤 results / data out"]
 ```
 
@@ -906,6 +958,16 @@ flowchart LR
     B --> C["📤 results / data out"]
 ```
 
+### ✅ `tests/test_core_brains.py`
+
+Python module.
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ test_carbon_identity_and_tiers, test_carbon_dos_escalates_empty_proceeds, test_carbon_stress_single_scan_not_escalated"]
+    B --> C["📤 results / data out"]
+```
+
 ### ✅ `tests/test_cve_re.py`
 
 Python module.
@@ -943,6 +1005,16 @@ Python module.
 ```mermaid
 flowchart LR
     A["📥 Input"] --> B["⚙️ test_sim_deterministic, test_protocols, test_hex_and_disassembly"]
+    B --> C["📤 results / data out"]
+```
+
+### ✅ `tests/test_php_brains.py`
+
+Python module.
+
+```mermaid
+flowchart LR
+    A["📥 Input"] --> B["⚙️ test_carbon4_identity, test_carbon4_stress_controls_all_pass, test_carbon4_sanitized_not_escalated"]
     B --> C["📤 results / data out"]
 ```
 
@@ -1016,8 +1088,8 @@ Full maps: `docs/MERGE_MAP.md` (the first merge) · `docs/SWARM.md` (the swarm) 
 
 ## ✅ Verified (observed 2026-11-08)
 
-- `python -m pytest -q` → **111 passed** (all sources' suites together)
-- `python main.py checks` → **CHECKS 44/44 · RESULT PASS · VERDICT PROCEED**
+- `python -m pytest -q` → **129 passed** (all sources' suites together)
+- `python main.py checks` → **CHECKS 47/47 · RESULT PASS · VERDICT PROCEED**
 - `python main.py netlab checks` → **23/23** · `matrix report` → **12/12** · `cve report` → **14/14** · `mask checks` → **36/36**
 - `chamber demo` → 15 triaged · 11 allowed · 4 held · **executed: false**
 - `honeypot report` → 12 attempts · top threat **100** · **listener_open: false**

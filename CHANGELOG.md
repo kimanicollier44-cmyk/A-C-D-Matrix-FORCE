@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.5.0 — 2026-11-08
+- Council seats completed (Darion's order): EVERY part of the Force now
+  carries Gemini Carbon 4 Extended Thinking + Muse AI + all 4 Google Flows.
+  - Purple Hat core: NEW purple_analyzer/brains.py — Carbon 4 DECIDER over
+    detector alerts (MAP/MODEL/STRESS/DECIDE, tiers 2048/8192/32768, can
+    only tighten: ESCALATE/WATCH/PROCEED, PROCEED never suppresses an
+    alert; STRESS control: a single threshold port scan is WATCH, never
+    ESCALATE), Muse advisor (exactly 4 advice items, authority none),
+    Flow plans (rendered=False), strictest-wins council_review.
+    CLI: main.py brain status | review.
+  - Chamber + honeypot seat: php_re gains brains.py (14 HOLD gates),
+    carbon4.py, muse_seat.py, flows.py — verbatim from PHP-Vuln-RE,
+    sha256-verified, with their 12 tests vendored (tests/test_php_brains.py).
+  - main.py council now reports SIX seats on the one surface.
+- Verified: pytest 129 passed, unified CHECKS 47/47, hold-demo exit 2.
+
+
 ## 1.4.0 — 2026-11-08
 - RENAMED: Purple-Hat Network Analyzer -> **A-C-D-Matrix-FORCE** (Darion's name).
 - Merged from Docker Hub images (verified live under credkellar/):

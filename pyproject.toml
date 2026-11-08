@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "a-c-d-matrix-force"
-version = "1.4.0"
+version = "1.5.0"
 description = "Merged Accurate Cyber Defense Network Analyzer + Purple Hat Bot: packet dissection, hex/disassembly, protocol stats, and purple-hat threat detection with Telegram alerts. Stdlib only."
 requires-python = ">=3.10"
 license = { text = "CC0-1.0 (Network Analyzer upstream) — see upstream/ and docs/MERGE_MAP.md" }

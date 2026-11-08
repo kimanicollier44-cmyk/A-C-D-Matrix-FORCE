@@ -314,6 +314,15 @@ def council_status() -> dict:
     from llmx_netlab.brains.carbon4 import THINKING_TIERS as netlab_tiers
     from math_matrix import brains as matrix_brains
     probe = matrix_brains.council_evaluate("council-status-probe", 0.9, False)
+    from purple_analyzer import brains as core_brains
+    from php_re import carbon4 as php_c4, muse_seat as php_muse
+    _c4 = php_c4.seat_status(); _mu = php_muse.seat_status()
+    php_seat = {"decider": _c4["decider"], "model_id": _c4["model_id"],
+                "default_tier": _c4["default_tier"],
+                "advisor": "Muse AI",
+                "advisor_decision_authority": _mu["decision_authority"],
+                "flows": "all 4 Google Flows (php_re/flows.py)",
+                "live_calls_made": False}
     return {
         "surface": "single unified council status (engines remain per-lab, code differs)",
         "seats": {
@@ -325,6 +334,8 @@ def council_status() -> dict:
                                 "muse_can_lift_hold": matrix_brains.MUSE["can_lift_hold"]},
             "cve-re": cve_seat(),
             "sysadmin-footprint-mask": mask_seat(),
+            "purple-hat core": core_brains.seat_status(),
+            "chamber + honeypot (php_re)": php_seat,
         },
         "live_calls_made": False,
     }
