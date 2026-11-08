@@ -1,5 +1,7 @@
 # ⚡ A-C-D-Matrix-FORCE
 
+![A-C-D-Matrix-FORCE](https://raw.githubusercontent.com/credkellar/A-C-D-Matrix-FORCE/main/IMG_5414.jpeg)
+
 **🟣 Accurate Cyber Defense's Network Analyzer + Purple Hat Bot, fused with 🌐 LLM-X-NetLab, 🧮 MATH-THE-MATRIX, 🛡️ CVE-RE, 👣 sysadmin-footprint-mask, and the 🧪 sandbox-api + 🐝 honeyroot-x Docker images — one force, one interface, zero dependencies.**
 
 Created by **Darion Kellar** · Upstream credit: Accurate Cyber Defense (Malawi 🇲🇼), Purple Hat Bot by Ian Carter Kulani
