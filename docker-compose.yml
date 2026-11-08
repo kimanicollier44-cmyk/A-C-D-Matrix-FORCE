@@ -1,0 +1,5 @@
+services:
+  a-c-d-matrix-force:
+    build: .
+    image: a-c-d-matrix-force:latest
+    command: ["python", "main.py", "demo"]
